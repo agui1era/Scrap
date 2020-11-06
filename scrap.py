@@ -124,7 +124,7 @@ for URL in URLproductos :
                   "PRECIO":price_element.text.strip(),
                   "CANTIDAD":price_element.text.strip(),
                   "LINK":link_element.get('href'),
-                  "FECHA":str(datetime.timestamp(datetime.now()))
+                  "FECHA":str(str(date.today()))
                   }
 
             # Inserting both document one by one
