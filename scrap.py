@@ -29,7 +29,9 @@ URLproductos=['https://listado.mercadolibre.cl/computador-gamer#D[A:computador%2
       'https://listado.mercadolibre.cl/notebook-y-accesorios#D[A:%20notebook%20y%20accesorios]',
       'https://listado.mercadolibre.cl/repuestos-para-celular#D[A:repuestos%20para%20celular]',
       'https://listado.mercadolibre.cl/dispensadores-y-purificadores#D[A:dispensadores%20y%20purificadores]',
-      'https://listado.mercadolibre.cl/drones-y-accesorios#D[A:drones%20y%20accesorios]']
+      'https://listado.mercadolibre.cl/drones-y-accesorios#D[A:drones%20y%20accesorios]',
+      'https://listado.mercadolibre.cl/antena-4g#D[A:antena%204g]',
+      'https://listado.mercadolibre.cl/scanner-automotriz#D[A:scanner%20automotriz]']
 
 def escribir_log(cadena):
 
@@ -122,7 +124,7 @@ for URL in URLproductos :
                   "UBICACION":str(i),
                   "PRODUCTO":title_element.text.strip(),
                   "PRECIO":price_element.text.strip(),
-                  "CANTIDAD":price_element.text.strip(),
+                  "CANTIDAD":cantidad,
                   "LINK":link_element.get('href'),
                   "FECHA":str(str(date.today()))
                   }
