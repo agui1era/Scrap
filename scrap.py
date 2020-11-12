@@ -131,80 +131,11 @@ for URL in URLproductos :
 
             # Inserting both document one by one
             collection.insert_one(document1)
-
-            
+          
             if i > LIMITE :
                break
             
          if i > LIMITE :
             break         
 
-         
-
 workbook.close()   
-fromaddr = "notificaciones@igromi.com"
-# instance of MIMEMultipart 
-msg = MIMEMultipart() 
-
-# storing the senders email address 
-msg['From'] = fromaddr 
-
-# storing the receivers email address 
-
-
-# storing the subject 
-msg['Subject'] = "Informe de producto"
-
-# string to store the body of the mail 
-body = "Informe de producto"
-
-# attach the body with the msg instance 
-msg.attach(MIMEText(body, 'plain')) 
-
-# open the file to be sent 
-filename = '/home/oscar/informe_productos-' + str(date.today())+'.xlsx'
-attachment = open('/home/oscar/informe_productos-' + str(date.today())+'.xlsx', "rb") 
-
-# instance of MIMEBase and named as p 
-p = MIMEBase('application', 'octet-stream') 
-
-# To change the payload into encoded form 
-p.set_payload((attachment).read()) 
-
-# encode into base64 
-encoders.encode_base64(p) 
-
-p.add_header('Content-Disposition', "attachment; filename= %s" % filename) 
-
-# attach the instance 'p' to instance 'msg' 
-msg.attach(p) 
-
-# creates SMTP session 
-s = smtplib.SMTP('smtp.zoho.com', 587) 
-
-# start TLS for security 
-s.starttls() 
-
-# Authentication 
-s.login(fromaddr, "Hkm150716") 
-
-# Converts the Multipart msg into a string 
-text = msg.as_string() 
-
-# sending the mail 
-msg['To'] = "aguileraelectro@gmail.com",
-s.sendmail(fromaddr,"aguileraelectro@gmail.com", text)
-escribir_log("email sent to aguileraelectro@gmail.com")
-
-time.sleep(10)
-
-msg['To'] = "victor.ruz@igromi.com"
-s.sendmail(fromaddr, "victor.ruz@igromi.com", text) 
-
-time.sleep(10)
-
-msg['To'] = "barbara@ondustri.com "
-s.sendmail(fromaddr, "barbara@ondustri.com ", text) 
-
-# terminating the session 
-s.quit() 
