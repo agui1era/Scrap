@@ -14,7 +14,7 @@ import smtplib
 import logging
 from pymongo import MongoClient
 
-LIMITE = 10    
+LIMITE = 20    
 
 URLproductos=['https://listado.mercadolibre.cl/computador-gamer#D[A:computador%20gamer]',
       'https://listado.mercadolibre.cl/accesorios-para-consola#D[A:accesorios%20para%20consola]',
@@ -31,7 +31,45 @@ URLproductos=['https://listado.mercadolibre.cl/computador-gamer#D[A:computador%2
       'https://listado.mercadolibre.cl/dispensadores-y-purificadores#D[A:dispensadores%20y%20purificadores]',
       'https://listado.mercadolibre.cl/drones-y-accesorios#D[A:drones%20y%20accesorios]',
       'https://listado.mercadolibre.cl/antena-4g#D[A:antena%204g]',
-      'https://listado.mercadolibre.cl/scanner-automotriz#D[A:scanner%20automotriz]']
+      'https://listado.mercadolibre.cl/scanner-automotriz#D[A:scanner%20automotriz]',
+      'https://listado.mercadolibre.cl/bebe#D[A:bebe]',
+      'https://listado.mercadolibre.cl/accesorio-auto#D[A:accesorio%20auto]',
+      'https://listado.mercadolibre.cl/decoracion-hogar#D[A:decoracion%20hogar]',
+      'https://listado.mercadolibre.cl/accesorios-celulares#D[A:accesorios%20celulares]',
+      'https://listado.mercadolibre.cl/celulares-telefonia/celulares/#menu=categories',
+      'https://listado.mercadolibre.cl/repuestos-maquinaria-agricola/',
+      'https://autos.mercadolibre.cl/accesorios/gps/',
+      'https://motos.mercadolibre.cl/acc-cuatrimotos/',
+      'https://vehiculos.mercadolibre.cl/acc-repuestos-camiones/',
+      'https://autos.mercadolibre.cl/accesorios/audio/',
+      'https://listado.mercadolibre.cl/infraestructura-rural/',
+      'https://listado.mercadolibre.cl/electrodomesticos-belleza/',
+      'https://listado.mercadolibre.cl/fotografia/accesorios/',
+      'https://listado.mercadolibre.cl/drones-accesorios/',
+      'https://listado.mercadolibre.cl/celulares-telefonia/accesorios-celulares/',
+      'https://listado.mercadolibre.cl/handies-radiofrecuencia/',
+      'https://listado.mercadolibre.cl/accesorios-antiestatica/',
+      'https://listado.mercadolibre.cl/almacenamiento/',
+      'https://listado.mercadolibre.cl/cables-hubs-usb/',
+      'https://listado.mercadolibre.cl/cajas-sobres-porta-cds/',
+      'https://listado.mercadolibre.cl/componentes-pc/',
+      'https://listado.mercadolibre.cl/conectividad-redes/',
+      'https://listado.mercadolibre.cl/estabilizadores-ups/',
+      'https://listado.mercadolibre.cl/impresion/',
+      'https://listado.mercadolibre.cl/lectores-scanners/',
+      'https://listado.mercadolibre.cl/limpieza-cuidado-pcs/',
+      'https://listado.mercadolibre.cl/monitores-accesorios/',
+      'https://listado.mercadolibre.cl/notebooks-accesorios/',
+      'https://listado.mercadolibre.cl/computacion/software/',
+      'https://listado.mercadolibre.cl/accesorios-consolas/' ,
+      'https://listado.mercadolibre.cl/consolas/',
+      'https://listado.mercadolibre.cl/pinballs-arcade/',
+      'https://listado.mercadolibre.cl/repuestos-consolas/',
+      'https://listado.mercadolibre.cl/videojuegos/juegos/',
+      'https://listado.mercadolibre.cl/electronica/accesorios-audio-video/',
+      'https://listado.mercadolibre.cl/electronica/accesorios-audio-video/cables/',
+      'https://listado.mercadolibre.cl/electronica/componentes-electronicos/',
+      'https://listado.mercadolibre.cl/equipamiento-medic/']
 
 def escribir_log(cadena):
 
