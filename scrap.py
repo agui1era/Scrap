@@ -4,7 +4,6 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText 
 from email.mime.base import MIMEBase 
 from email import encoders 
-import xlsxwriter
 import time
 from datetime import datetime
 from datetime import date
@@ -15,61 +14,6 @@ import logging
 from pymongo import MongoClient
 
 LIMITE = 20    
-
-URLproductos=['https://listado.mercadolibre.cl/computador-gamer#D[A:computador%20gamer]',
-      'https://listado.mercadolibre.cl/accesorios-para-consola#D[A:accesorios%20para%20consola]',
-      'https://listado.mercadolibre.cl/accesorios-para-camaras#D[A:accesorios%20para%20camaras]',
-      'https://listado.mercadolibre.cl/componentes-de-pc#D[A:%20componentes%20de%20pc]',
-      'https://listado.mercadolibre.cl/conectividad-y-redes#D[A:conectividad%20y%20redes]',
-      'https://listado.mercadolibre.cl/cables-y-hubs#D[A:cables%20y%20hubs]',
-      'https://listado.mercadolibre.cl/accesorios-para-pc-gamming#D[A:accesorios%20para%20PC%20gamming]',
-      'https://listado.mercadolibre.cl/estabilizadores-y-ups#D[A:estabilizadores%20y%20UPS]',
-      'https://listado.mercadolibre.cl/monitores-y-accesorios#D[A:monitores%20y%20accesorios]',
-      'https://listado.mercadolibre.cl/perifericos-de-pc#D[A:perifericos%20de%20PC]',
-      'https://listado.mercadolibre.cl/notebook-y-accesorios#D[A:%20notebook%20y%20accesorios]',
-      'https://listado.mercadolibre.cl/repuestos-para-celular#D[A:repuestos%20para%20celular]',
-      'https://listado.mercadolibre.cl/dispensadores-y-purificadores#D[A:dispensadores%20y%20purificadores]',
-      'https://listado.mercadolibre.cl/drones-y-accesorios#D[A:drones%20y%20accesorios]',
-      'https://listado.mercadolibre.cl/antena-4g#D[A:antena%204g]',
-      'https://listado.mercadolibre.cl/scanner-automotriz#D[A:scanner%20automotriz]',
-      'https://listado.mercadolibre.cl/bebe#D[A:bebe]',
-      'https://listado.mercadolibre.cl/accesorio-auto#D[A:accesorio%20auto]',
-      'https://listado.mercadolibre.cl/decoracion-hogar#D[A:decoracion%20hogar]',
-      'https://listado.mercadolibre.cl/accesorios-celulares#D[A:accesorios%20celulares]',
-      'https://listado.mercadolibre.cl/celulares-telefonia/celulares/#menu=categories',
-      'https://listado.mercadolibre.cl/repuestos-maquinaria-agricola/',
-      'https://autos.mercadolibre.cl/accesorios/gps/',
-      'https://motos.mercadolibre.cl/acc-cuatrimotos/',
-      'https://vehiculos.mercadolibre.cl/acc-repuestos-camiones/',
-      'https://autos.mercadolibre.cl/accesorios/audio/',
-      'https://listado.mercadolibre.cl/infraestructura-rural/',
-      'https://listado.mercadolibre.cl/electrodomesticos-belleza/',
-      'https://listado.mercadolibre.cl/fotografia/accesorios/',
-      'https://listado.mercadolibre.cl/drones-accesorios/',
-      'https://listado.mercadolibre.cl/celulares-telefonia/accesorios-celulares/',
-      'https://listado.mercadolibre.cl/handies-radiofrecuencia/',
-      'https://listado.mercadolibre.cl/accesorios-antiestatica/',
-      'https://listado.mercadolibre.cl/almacenamiento/',
-      'https://listado.mercadolibre.cl/cables-hubs-usb/',
-      'https://listado.mercadolibre.cl/cajas-sobres-porta-cds/',
-      'https://listado.mercadolibre.cl/componentes-pc/',
-      'https://listado.mercadolibre.cl/conectividad-redes/',
-      'https://listado.mercadolibre.cl/estabilizadores-ups/',
-      'https://listado.mercadolibre.cl/impresion/',
-      'https://listado.mercadolibre.cl/lectores-scanners/',
-      'https://listado.mercadolibre.cl/limpieza-cuidado-pcs/',
-      'https://listado.mercadolibre.cl/monitores-accesorios/',
-      'https://listado.mercadolibre.cl/notebooks-accesorios/',
-      'https://listado.mercadolibre.cl/computacion/software/',
-      'https://listado.mercadolibre.cl/accesorios-consolas/' ,
-      'https://listado.mercadolibre.cl/consolas/',
-      'https://listado.mercadolibre.cl/pinballs-arcade/',
-      'https://listado.mercadolibre.cl/repuestos-consolas/',
-      'https://listado.mercadolibre.cl/videojuegos/juegos/',
-      'https://listado.mercadolibre.cl/electronica/accesorios-audio-video/',
-      'https://listado.mercadolibre.cl/electronica/accesorios-audio-video/cables/',
-      'https://listado.mercadolibre.cl/electronica/componentes-electronicos/',
-      'https://listado.mercadolibre.cl/equipamiento-medic/']
 
 def escribir_log(cadena):
 
@@ -104,11 +48,23 @@ def get_qty(URL):
             return(cantidad_string)
     
 a=0
-workbook = xlsxwriter.Workbook('/home/oscar/informe_productos-' + str(date.today())+'.xlsx')
-worksheet = workbook.add_worksheet()
 
+getpage= requests.get('https://www.mercadolibre.cl/categorias#nav-header')
+
+getpage_soup= BeautifulSoup(getpage.text, 'html.parser')
+
+all_links= getpage_soup.findAll('a')
+
+categorias =[]
+
+for link in all_links:
+    print (link.get('href'))
+    categorias.append(link.get('href'))
         
-for URL in URLproductos :
+for URL in categorias :
+
+   try:
+      
       page = requests.get(URL)
 
       results = BeautifulSoup(page.content, 'html.parser')
@@ -139,13 +95,6 @@ for URL in URLproductos :
             print('-------------------------------------------------------------------------------------------------------------')
             print()           
          
-            bold = workbook.add_format({'bold': True})
-            
-            worksheet.write(3+a, 1,'UBICACION: '+str(i),bold)
-            worksheet.write(5+a, 1,'PRODUCTO: '+title_element.text.strip(),bold)
-            worksheet.write(7+a, 1,'PRECIO: '+price_element.text.strip(),bold)
-            worksheet.write(9+a, 1,'CANTIDAD: '+cantidad,bold)
-            worksheet.write(11+a, 1,'LINK: '+link_element.get('href'),bold)
             a=a+13 
             i=i+1
             client = MongoClient()
@@ -169,11 +118,13 @@ for URL in URLproductos :
 
             # Inserting both document one by one
             collection.insert_one(document1)
-          
+         
             if i > LIMITE :
                break
             
          if i > LIMITE :
-            break         
+            break 
+   except:  
+      print('ERROR')        
 
-workbook.close()   
+
