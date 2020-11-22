@@ -13,7 +13,8 @@ import smtplib
 import logging
 from pymongo import MongoClient
 
-LIMITE = 20    
+#cantidad de productos por categoria
+LIMITE = 10    
 
 def escribir_log(cadena):
 

@@ -3,11 +3,13 @@ from pymongo import MongoClient
 import datetime
 
 #cantidad de productos vendidos minimos vendidos por dia a guardar
-var_busqueda=1
+variacion_busqueda=1
+
 #dias hacia atras
-var_dias=30
+rango_dias=30
+
 #cantidad de ventas diferentes
-conteo_ventas=5
+limite_de_conteo_ventas=3
 
 client = MongoClient()
 client = MongoClient('localhost', 27017)
@@ -16,13 +18,12 @@ client = MongoClient('localhost', 27017)
 db = client.scrapDB
 
 collectionx = db.MLX
-
 collection = db.ML2
 collectionx.drop()
 
 z=0
 
-for i in range(var_dias):
+for i in range(rango_dias):
   
     now_date = datetime.datetime.now()
     end_date = now_date  - datetime.timedelta(days=z)
@@ -34,40 +35,46 @@ for i in range(var_dias):
     
     z=z+1
 
-    result=collection.find({"FECHA":str_begin_date})
+    result_todos_ayer=collection.find({"FECHA":str_begin_date})
     
     print("_____________________________________________________________________")
     print("")
     print("ANÁLISIS DE VENTA ML DESDE EL " + str_begin_date +" AL "+str_end_date)
-    print("PARA PRODUCTOS CON VARIACIÓN MAYOR A: " +str(var_busqueda) )
+    print("PARA PRODUCTOS CON VARIACIÓN MAYOR A: " +str(variacion_busqueda) )
     print("_____________________________________________________________________")
 
-    for doc in result:
+    for doc_ayer in result_todos_ayer:
         
-        query = {'$and': [{'PRODUCTO': doc['PRODUCTO']}, {'FECHA': str_end_date}]} 
-        result2=collection.find_one(query)
+        query = {'$and': [{'PRODUCTO': doc_ayer['PRODUCTO']}, {'FECHA': str_end_date}]} 
+        result_actual=collection.find_one(query)
+
+
+        #consutlo si ya existe el ingreso de variacion para una fecha
+        
+        query = {'$and': [{'PRODUCTO': doc_ayer['PRODUCTO']}, {'FECHA': str_begin_date}]} 
+        result=collectionx.find_one(query)
 
         try:
             
-            cantidad_ayer = int(doc['CANTIDAD'])
+            cantidad_ayer = int(doc_ayer['CANTIDAD'])
         except:
             cantidad_ayer = -1
 
         try:
-            cantidad_actual = int(result2['CANTIDAD'])
+            cantidad_actual = int(result_actual['CANTIDAD'])
         except:
             cantidad_actual = -1
 
         try:
-            precio = result2['PRECIO']
+            precio = result_actual['PRECIO']
         except:
             precio= -1
 
         variacion = (cantidad_actual - cantidad_ayer) 
         
-        if (variacion > var_busqueda) and (cantidad_actual != -1) and (cantidad_ayer != -1) and ( precio != -1):
+        if  (variacion > variacion_busqueda) and (cantidad_actual != -1) and (cantidad_ayer != -1) and ( precio != -1):
                 print("") 
-                print(doc['PRODUCTO'])         
+                print(doc_ayer['PRODUCTO'])         
                 print('Cantidad primer día: '+str(cantidad_actual))
                 print('Cantidad último día: '+str(cantidad_ayer))
                 print('Precio: $'+precio)
@@ -76,30 +83,30 @@ for i in range(var_dias):
                        
                 # first document
                 documentx = {
-                    "PRODUCTO":doc['PRODUCTO'],
+                    "PRODUCTO":doc_ayer['PRODUCTO'],
                     "PRECIO": precio,
                     "VARIACIÓN":variacion,
                     "FECHA":str_begin_date,
                     }
 
                 # Inserting both document one by one
+                
                 collectionx.insert_one(documentx)
     
 print()
 print('XXXXXXXXXXXXXXXXXXXXXXXXXXX')
-print('ANÁLISIS DE VENTA DE ' + str(var_dias)+' DÍAS ATRAS')
+print('ANÁLISIS DE VENTA DE ' + str(rango_dias)+' DÍAS ATRAS')
 print('XXXXXXXXXXXXXXXXXXXXXXXXXXX')
 print()
 
 result=collectionx.distinct('PRODUCTO')
 
-
 for doc in result:
-    result2=collectionx.find({'PRODUCTO': doc}).count()
-    if (result2 > conteo_ventas):
+    cantidad_de_ventas=collectionx.find({'PRODUCTO': doc}).count()
+    if ( cantidad_de_ventas > limite_de_conteo_ventas):
         print("___________________________________________")
         print("PRODUCTO: "+doc)
         producto=collectionx.find_one({'PRODUCTO': doc})
         print("PRECIO: "+producto['PRECIO'])
-        print("CANTIDAD DE VENTAS DISTINTAS: "+str(result2))
+        print("CANTIDAD DE VENTAS DISTINTAS: "+str(cantidad_de_ventas))
         print("___________________________________________")
