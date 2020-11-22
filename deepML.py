@@ -9,7 +9,7 @@ variacion_busqueda=1
 rango_dias=30
 
 #cantidad de ventas diferentes
-limite_de_conteo_ventas=3
+limite_de_conteo_ventas=5
 
 client = MongoClient()
 client = MongoClient('localhost', 27017)
@@ -50,7 +50,7 @@ for i in range(rango_dias):
 
 
         #consutlo si ya existe el ingreso de variacion para una fecha
-        
+
         query = {'$and': [{'PRODUCTO': doc_ayer['PRODUCTO']}, {'FECHA': str_begin_date}]} 
         result=collectionx.find_one(query)
 
@@ -82,16 +82,25 @@ for i in range(rango_dias):
                 print("_____________________________________")
                        
                 # first document
-                documentx = {
-                    "PRODUCTO":doc_ayer['PRODUCTO'],
-                    "PRECIO": precio,
-                    "VARIACIÓN":variacion,
-                    "FECHA":str_begin_date,
-                    }
+                #if result_actual['PRODUCTO'] !=  result_actual['PRODUCTO']:
+           
+                try:
+                    producto_en_conteo = result['PRODUCTO']
+                except:
+                   producto_en_conteo='' 
+               
+                if doc_ayer['PRODUCTO'] != producto_en_conteo :
 
-                # Inserting both document one by one
+                    documentx = {
+                        "PRODUCTO":doc_ayer['PRODUCTO'],
+                        "PRECIO": precio,
+                        "VARIACIÓN":variacion,
+                        "FECHA":str_begin_date,
+                        }
+
+                        # Inserting both document one by one
                 
-                collectionx.insert_one(documentx)
+                    collectionx.insert_one(documentx)
     
 print()
 print('XXXXXXXXXXXXXXXXXXXXXXXXXXX')
