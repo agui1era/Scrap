@@ -113,9 +113,11 @@ result=collectionx.distinct('PRODUCTO')
 for doc in result:
     cantidad_de_ventas=collectionx.find({'PRODUCTO': doc}).count()
     if ( cantidad_de_ventas > limite_de_conteo_ventas):
+        print("")
         print("___________________________________________")
         print("PRODUCTO: "+doc)
         producto=collectionx.find_one({'PRODUCTO': doc})
         print("PRECIO: "+producto['PRECIO'])
         print("CANTIDAD DE VENTAS DISTINTAS: "+str(cantidad_de_ventas))
         print("___________________________________________")
+        print("")
