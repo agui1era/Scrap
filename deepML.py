@@ -6,10 +6,10 @@ import datetime
 variacion_busqueda=1
 
 #dias hacia atras
-rango_dias=30
+rango_dias=60
 
 #cantidad de ventas diferentes
-limite_de_conteo_ventas=5
+limite_de_conteo_ventas=15
 
 client = MongoClient()
 client = MongoClient('localhost', 27017)
