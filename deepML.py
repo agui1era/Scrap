@@ -37,11 +37,12 @@ for i in range(rango_dias):
 
     result_todos_ayer=collection.find({"FECHA":str_begin_date})
     
-    print('XXXXXXXXXXXXXXXXXXXXXXXXXXXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
+    print('XXXXXXXXXXXXXXXXXXXXXXXXXXXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
     print("")
     print("ANALISIS DE VENTA ML DESDE EL " + str_begin_date +" AL "+str_end_date)
     print("PARA PRODUCTOS CON VARIACION MAYOR A: " +str(variacion_busqueda) )
-    print('XXXXXXXXXXXXXXXXXXXXXXXXXXXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
+    print("")
+    print('XXXXXXXXXXXXXXXXXXXXXXXXXXXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
 
     for doc_ayer in result_todos_ayer:
         
@@ -79,7 +80,7 @@ for i in range(rango_dias):
                 print('Cantidad anterior: '+str(cantidad_ayer))
                 print('Precio: $'+precio)
                 print("Variacion de stock: "+ str(variacion))
-                print("_____________________________________")
+                print("____________________________________________________________________________________________________________________________")
                        
                 # first document
                 #if result_actual['PRODUCTO'] !=  result_actual['PRODUCTO']:
@@ -103,10 +104,10 @@ for i in range(rango_dias):
                     collectionx.insert_one(documentx)
     
 print()
-print('XXXXXXXXXXXXXXXXXXXXXXXXXXXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
+print('XXXXXXXXXXXXXXXXXXXXXXXXXXXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
 print('ANALISIS DE VENTA DE ' + str(rango_dias)+' DIAS ATRAS')
 print('Con ocurrencia de venta de al menos: '+ str(limite_de_conteo_ventas))
-print('XXXXXXXXXXXXXXXXXXXXXXXXXXXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
+print('XXXXXXXXXXXXXXXXXXXXXXXXXXXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
 print()
 
 result=collectionx.distinct('PRODUCTO')
