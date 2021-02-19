@@ -37,11 +37,11 @@ for i in range(rango_dias):
 
     result_todos_ayer=collection.find({"FECHA":str_begin_date})
     
-    print("_____________________________________________________________________")
+    print('XXXXXXXXXXXXXXXXXXXXXXXXXXXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
     print("")
-    print("ANÁLISIS DE VENTA ML DESDE EL " + str_begin_date +" AL "+str_end_date)
-    print("PARA PRODUCTOS CON VARIACIÓN MAYOR A: " +str(variacion_busqueda) )
-    print("_____________________________________________________________________")
+    print("ANALISIS DE VENTA ML DESDE EL " + str_begin_date +" AL "+str_end_date)
+    print("PARA PRODUCTOS CON VARIACION MAYOR A: " +str(variacion_busqueda) )
+    print('XXXXXXXXXXXXXXXXXXXXXXXXXXXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
 
     for doc_ayer in result_todos_ayer:
         
@@ -75,10 +75,10 @@ for i in range(rango_dias):
         if  (variacion > variacion_busqueda) and (cantidad_actual != -1) and (cantidad_ayer != -1) and ( precio != -1):
                 print("") 
                 print(doc_ayer['PRODUCTO'])         
-                print('Cantidad primer día: '+str(cantidad_actual))
-                print('Cantidad último día: '+str(cantidad_ayer))
+                print('Cantidad actual: '+str(cantidad_actual))
+                print('Cantidad anterior: '+str(cantidad_ayer))
                 print('Precio: $'+precio)
-                print("Variación de stock: "+ str(variacion))
+                print("Variacion de stock: "+ str(variacion))
                 print("_____________________________________")
                        
                 # first document
@@ -103,9 +103,10 @@ for i in range(rango_dias):
                     collectionx.insert_one(documentx)
     
 print()
-print('XXXXXXXXXXXXXXXXXXXXXXXXXXX')
-print('ANÁLISIS DE VENTA DE ' + str(rango_dias)+' DÍAS ATRAS')
-print('XXXXXXXXXXXXXXXXXXXXXXXXXXX')
+print('XXXXXXXXXXXXXXXXXXXXXXXXXXXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
+print('ANALISIS DE VENTA DE ' + str(rango_dias)+' DIAS ATRAS')
+print('Con ocurrencia de venta de al menos: '+ limite_de_conteo_ventas)
+print('XXXXXXXXXXXXXXXXXXXXXXXXXXXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
 print()
 
 result=collectionx.distinct('PRODUCTO')
