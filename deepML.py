@@ -105,7 +105,7 @@ for i in range(rango_dias):
 print()
 print('XXXXXXXXXXXXXXXXXXXXXXXXXXXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
 print('ANALISIS DE VENTA DE ' + str(rango_dias)+' DIAS ATRAS')
-print('Con ocurrencia de venta de al menos: '+ limite_de_conteo_ventas)
+print('Con ocurrencia de venta de al menos: '+ str(limite_de_conteo_ventas))
 print('XXXXXXXXXXXXXXXXXXXXXXXXXXXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
 print()
 
