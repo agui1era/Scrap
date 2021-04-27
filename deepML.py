@@ -75,7 +75,7 @@ for i in range(rango_dias):
         
         if  (variacion > variacion_busqueda) and (cantidad_actual != -1) and (cantidad_ayer != -1) and ( precio != -1):
                 #print("") 
-                #print(doc_ayer['PRODUCTO'])         
+                print(doc_ayer['PRODUCTO'])         
                 #print('Cantidad actual: '+str(cantidad_actual))
                 #print('Cantidad anterior: '+str(cantidad_ayer))
                 #print('Precio: $'+precio)
