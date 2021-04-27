@@ -37,12 +37,12 @@ for i in range(rango_dias):
 
     result_todos_ayer=collection.find({"FECHA":str_begin_date})
     
-    print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-    print("")
-    print("ANALISIS DE VENTA ML DESDE EL " + str_begin_date +" AL "+str_end_date)
-    print("PARA PRODUCTOS CON VARIACION MAYOR A: " +str(variacion_busqueda) )
-    print("")
-    print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+    #print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+    #print("")
+    #print("ANALISIS DE VENTA ML DESDE EL " + str_begin_date +" AL "+str_end_date)
+    #print("PARA PRODUCTOS CON VARIACION MAYOR A: " +str(variacion_busqueda) )
+    #print("")
+    #print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
 
     for doc_ayer in result_todos_ayer:
         
@@ -74,13 +74,13 @@ for i in range(rango_dias):
         variacion = (cantidad_actual - cantidad_ayer) 
         
         if  (variacion > variacion_busqueda) and (cantidad_actual != -1) and (cantidad_ayer != -1) and ( precio != -1):
-                print("") 
-                print(doc_ayer['PRODUCTO'])         
-                print('Cantidad actual: '+str(cantidad_actual))
-                print('Cantidad anterior: '+str(cantidad_ayer))
-                print('Precio: $'+precio)
-                print("Variacion de stock: "+ str(variacion))
-                print("____________________________________________________________________________________________________________________________")
+                #print("") 
+                #print(doc_ayer['PRODUCTO'])         
+                #print('Cantidad actual: '+str(cantidad_actual))
+                #print('Cantidad anterior: '+str(cantidad_ayer))
+                #print('Precio: $'+precio)
+                #print("Variacion de stock: "+ str(variacion))
+                #print("____________________________________________________________________________________________________________________________")
                        
                 # first document
                 #if result_actual['PRODUCTO'] !=  result_actual['PRODUCTO']:
