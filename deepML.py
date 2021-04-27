@@ -79,7 +79,7 @@ for i in range(rango_dias):
                 #print('Cantidad actual: '+str(cantidad_actual))
                 #print('Cantidad anterior: '+str(cantidad_ayer))
                 #print('Precio: $'+precio)
-                #print("Variacion de stock: "+ str(variacion))
+                print("Variacion de stock: "+ str(variacion))
                 #print("____________________________________________________________________________________________________________________________")
                        
                 # first document
